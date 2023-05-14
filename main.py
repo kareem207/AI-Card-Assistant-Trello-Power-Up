@@ -71,7 +71,7 @@ def MainAccess():
     return 'Hello World'
 
 @app.route('/powerUpScript', methods=['GET'])
-def MainAccess():
+def powerUpScript():
     return render_template('main.html')
 
 
