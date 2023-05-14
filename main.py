@@ -6,7 +6,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = "st-123123"
 
 template = """
 title: {title}
