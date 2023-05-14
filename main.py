@@ -48,19 +48,23 @@ def retrieve_card_details(card_id):
 
 @app.route('/process_card/<card_id>', methods=['GET'])
 def process_card_and_add_comment(card_id):
-    card_data = retrieve_card_details(card_id)
+    try:
+        card_data = retrieve_card_details(card_id)
 
-    # Extract the card description
-    card_desc = card_data['desc']
-    card_title = card_data['name']
+        # Extract the card description
+        card_desc = card_data['desc']
+        card_title = card_data['name']
 
-    # Process the card data using Python code
-    output = process_card_data(card_desc, card_title)
+        # Process the card data using Python code
+        output = process_card_data(card_desc, card_title)
 
-    # Add a comment with the output to the card
-    add_comment_to_card(card_id, output)
+        # Add a comment with the output to the card
+        add_comment_to_card(card_id, output)
 
-    return 'Card processed successfully'
+        return 'Card processed successfully'
+    except Exception as e:
+        print(e)
+        return 'Error processing card'
 
 @app.route('/', methods=['GET'])
 def MainAccess():
