@@ -2,6 +2,7 @@ langchain
 Flask
 openai
 requests
+flask-cors
 click==7.1.2
 gunicorn==20.0.4
 itsdangerous==1.1.0
