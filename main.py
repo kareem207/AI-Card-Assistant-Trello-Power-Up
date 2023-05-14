@@ -70,6 +70,11 @@ def process_card_and_add_comment(card_id):
 def MainAccess():
     return 'Hello World'
 
+@app.route('/powerUpScript', methods=['GET'])
+def MainAccess():
+    return render_template('main.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
