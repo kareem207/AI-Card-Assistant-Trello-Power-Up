@@ -70,7 +70,7 @@ def process_card_and_add_comment(card_id):
 
 @app.route('/', methods=['GET'])
 def MainAccess():
-    response_data = {"message": "Hello World"}
+    response_data = {"message": "احلى مسا على اخويا اشرف و اخويا عمرو"}
     return jsonify(response_data)
 
 @app.route('/powerUpScript', methods=['GET'])
