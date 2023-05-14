@@ -1,12 +1,70 @@
-from flask import Flask, jsonify
+import requests
+from langchain import OpenAI
+from langchain import PromptTemplate
 import os
+from flask import Flask
 
 app = Flask(__name__)
 
+os.environ["OPENAI_API_KEY"] = "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"
 
-@app.route('/')
-def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
+template = """
+title: {title}
+description: {desc}
+i want you to explain the title and description
+"""
+
+prompt = PromptTemplate(
+    input_variables=["title", "desc"],
+    template=template,
+)
+
+llm = OpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+# Trello API credentials
+API_KEY = '00e260a6242a488071b11c43f7d5f7d5'
+TOKEN = 'ATTAce95851b591950024ce8e4b63e83270a7f1b2d47184aacdf378dc63ebda5d85e0848598D'
+
+# URL for adding a comment to a card
+COMMENT_URL = 'https://api.trello.com/1/cards/{}/actions/comments?key={}&token={}'
+
+# Function to process the card data using Python code
+def process_card_data(desc, title):
+    processed_data = llm(prompt.format(title=title, desc=desc))
+    return processed_data
+
+# Function to add a comment to the card with the output
+def add_comment_to_card(card_id, comment):
+    comment_url = COMMENT_URL.format(card_id, API_KEY, TOKEN)
+    payload = {'text': comment}
+    requests.post(comment_url, json=payload)
+
+# Retrieve the card details using the Trello API
+def retrieve_card_details(card_id):
+    card_url = f'https://api.trello.com/1/cards/{card_id}?key={API_KEY}&token={TOKEN}'
+    response = requests.get(card_url)
+    card_data = response.json()
+    return card_data
+
+@app.route('/process_card/<card_id>', methods=['GET'])
+def process_card_and_add_comment(card_id):
+    card_data = retrieve_card_details(card_id)
+
+    # Extract the card description
+    card_desc = card_data['desc']
+    card_title = card_data['name']
+
+    # Process the card data using Python code
+    output = process_card_data(card_desc, card_title)
+
+    # Add a comment with the output to the card
+    add_comment_to_card(card_id, output)
+
+    return 'Card processed successfully'
+
+@app.route('/', methods=['GET'])
+def MainAccess():
+    return 'Hello World'
 
 
 if __name__ == '__main__':
