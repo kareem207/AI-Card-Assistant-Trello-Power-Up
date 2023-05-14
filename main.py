@@ -6,7 +6,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 
 template = """
 title: {title}
@@ -72,7 +72,7 @@ def MainAccess():
 
 @app.route('/powerUpScript', methods=['GET'])
 def powerUpScript():
-    return render_template('main.html')
+    return render_template('index.html')
 
 
 
