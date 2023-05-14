@@ -1,10 +1,12 @@
 import requests
 from langchain import OpenAI
 from langchain import PromptTemplate
+from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 import os
-from flask import Flask, render_template
 
 app = Flask(__name__)
+CORS(app)
 
 os.environ["OPENAI_API_KEY"] = "st-123123"
 
@@ -68,7 +70,8 @@ def process_card_and_add_comment(card_id):
 
 @app.route('/', methods=['GET'])
 def MainAccess():
-    return 'Hello World'
+    response_data = {"message": "Hello World"}
+    return jsonify(response_data)
 
 @app.route('/powerUpScript', methods=['GET'])
 def powerUpScript():
