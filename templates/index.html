@@ -7,45 +7,66 @@
 <body>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script>
-    TrelloPowerUp.initialize({
-      'card-buttons': function (t, options) {
-        return [
-          {
-            icon: "https://i.ibb.co/6sbknH0/logo-stroke-32pt-style-2-no-stroke.png",
-            text: "Hello World!",
-            callback: async function (t) {
-              try {
-                // Fetch data from the JSONPlaceholder API
-                const response = await fetch('https://flask-production-330b.up.railway.app/');
-                const data = await response.json();
-  
-                // Get the title of the post
-                const message = data.message;
+  TrelloPowerUp.initialize({
+    'card-buttons': function (t, options) {
+      return [
+        {
+          icon: "https://i.ibb.co/6sbknH0/logo-stroke-32pt-style-2-no-stroke.png",
+          text: "Hello World!",
+          callback: async function (t) {
+            try {
+              // Fetch data from the JSONPlaceholder API
+              const response = await fetch('https://flask-production-330b.up.railway.app/');
+              const data = await response.json();
 
-                // Get the card's id and name, and display the alert
-                const card = await t.card('id', 'name');
-                alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Funtion: ${message}`);
-              } catch (error) {
-                console.error('Error fetching data:', error);
-              }
-            }
-          },
-          {
-            icon: "https://example.com/your-icon.png",
-            text: "Show Card Info",
-            callback: async function (t) {
+              // Get the title of the post
+              const message = data.message;
+
+              // Get the card's id and name, and display the alert
               const card = await t.card('id', 'name');
-
-              // Create a modal and display card info
-              return t.modal({
-                title: 'Card Info',
-                url: 'https://example.com/modal-content?cardId=' + card.id + '&cardName=' + card.name,
-              });
+              alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Function: ${message}`);
+            } catch (error) {
+              console.error('Error fetching data:', error);
             }
           }
-        ];
-      },
-    });
+        },
+        {
+          icon: "https://i.ibb.co/6sbknH0/logo-stroke-32pt-style-2-no-stroke.png",
+          text: "Show Card Info",
+          callback: async function (t) {
+            const card = await t.card('id', 'name');
+
+            // Create a custom modal for card info
+            const modalContent = `
+              <div class="modal">
+                <div class="modal-content">
+                  <h3>Card Info</h3>
+                  <p>Card ID: ${card.id}</p>
+                  <p>Card Name: ${card.name}</p>
+                  <p>Chatbot-like View:</p>
+                  <div id="chatbot-view">
+                    <!-- Chatbot messages and interactions go here -->
+                  </div>
+                </div>
+              </div>
+            `;
+
+            // Create a hidden element to hold the modal content
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = modalContent;
+
+            // Add the modal container to the document body
+            document.body.appendChild(modalContainer);
+
+            // Show the modal
+            modalContainer.style.display = 'block';
+
+            // Add any additional logic for the chatbot interactions
+          }
+        }
+      ];
+    },
+  });
   </script>
   </body>
 </body>
