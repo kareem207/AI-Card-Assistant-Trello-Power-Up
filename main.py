@@ -77,7 +77,7 @@ def MainAccess():
 def powerUpScript():
     return render_template('index.html')
 
-@app.route('/modal', methods=['GET'])
+@app.route('/modal/<card_id>/<card_name>', methods=['GET'])
 def modal():
     return render_template('modal.html')
 
