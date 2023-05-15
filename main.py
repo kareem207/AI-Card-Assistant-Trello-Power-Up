@@ -11,7 +11,7 @@ CORS(app)
 template = """
 title: {title}
 description: {desc}
-i want you to explain the title and description
+i want you to explain the title and description in points and generate 3 points why to buy this real state and generate 3 points why not to buy this real state
 """
 
 prompt = PromptTemplate(
