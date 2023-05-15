@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -26,15 +25,30 @@
   
                 // Get the card's id and name, and display the alert
                 const card = await t.card('id', 'name');
-                alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Funtion: ${message}`);
+                alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Function: ${message}`);
               } catch (error) {
                 console.error('Error fetching data:', error);
               }
+            }
+          },
+          {
+            icon: "https://example.com/your-icon.png",
+            text: "Show Card Info",
+            callback: async function (t) {
+              const card = await t.card('id', 'name');
+  
+              // Create a modal and display card info
+              return t.modal({
+                title: 'Card Info',
+                url: 'https://example.com/modal-content?cardId=' + card.id + '&cardName=' + card.name,
+                fullscreen: true,
+              });
             }
           }
         ];
       },
     });
   </script>
-  </body>
+</body>
+
 </html>
