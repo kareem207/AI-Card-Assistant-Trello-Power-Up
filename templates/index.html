@@ -11,7 +11,7 @@
         return [
           {
             icon: "https://i.ibb.co/6sbknH0/logo-stroke-32pt-style-2-no-stroke.png",
-            text: "Hello World!",
+            text: "Summarize",
             callback: async function (t) {
               try {
                 // Get the card's id and name, and display the alert
@@ -25,7 +25,7 @@
                 // Get the title of the post
                 const message = data.message;
             
-                alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Function: ${message}`);
+                
               } catch (error) {
                 console.error('Error fetching data:', error);
               }
