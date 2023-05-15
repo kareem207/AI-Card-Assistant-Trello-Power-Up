@@ -14,15 +14,17 @@
             text: "Hello World!",
             callback: async function (t) {
               try {
+                // Get the card's id and name, and display the alert
+                const card = await t.card('id', 'name');
+                
+                
                 // Fetch data from the JSONPlaceholder API
-                const response = await fetch('https://flask-production-330b.up.railway.app/');
+                const response = await fetch(`https://flask-production-330b.up.railway.app/process_card/${card.id}`);
                 const data = await response.json();
   
                 // Get the title of the post
                 const message = data.message;
-
-                // Get the card's id and name, and display the alert
-                const card = await t.card('id', 'name');
+            
                 alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Function: ${message}`);
               } catch (error) {
                 console.error('Error fetching data:', error);
