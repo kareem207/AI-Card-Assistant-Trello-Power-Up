@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    /* Additional custom styles if needed */
-  </style>
 </head>
-
 <body>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script>
@@ -26,7 +20,7 @@
   
                 // Get the title of the post
                 const message = data.message;
-  
+
                 // Get the card's id and name, and display the alert
                 const card = await t.card('id', 'name');
                 alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Function: ${message}`);
@@ -36,48 +30,23 @@
             }
           },
           {
-            icon: "https://i.ibb.co/6sbknH0/logo-stroke-32pt-style-2-no-stroke.png",
+            icon: "https://example.com/your-icon.png",
             text: "Show Card Info",
             callback: async function (t) {
               const card = await t.card('id', 'name');
-  
-              // Create a modal for card info using Bootstrap
-              const modalContent = `
-                <div class="modal fade" id="cardInfoModal" tabindex="-1" role="dialog" aria-labelledby="cardInfoModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="cardInfoModalLabel">Card Info</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <p>Card ID: ${card.id}</p>
-                        <p>Card Name: ${card.name}</p>
-                        <p>Chatbot-like View:</p>
-                        <div id="chatbot-view">
-                          <!-- Chatbot messages and interactions go here -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              `;
-  
-              // Append the modal content to the document body
-              document.body.insertAdjacentHTML('beforeend', modalContent);
-  
-              // Show the modal using Bootstrap's modal function
-              $('#cardInfoModal').modal('show');
-  
-              // Add any additional logic for the chatbot interactions
+
+              // Create a modal and display card info
+              return t.modal({
+                title: 'Card Info',
+                url: './modal.html',
+                fullscreen: false,
+              });
             }
           }
         ];
       },
     });
   </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</body>
+</html>
