@@ -11,7 +11,24 @@ CORS(app)
 template = """
 title: {title}
 description: {desc}
-i want you to explain the title and description in points and generate 3 points why to buy this real state and generate 3 points why not to buy this real state
+the output should be in the format that is provided below:
+'''
+    Title: (title of the card)
+    Decision: (choose one of the following depending on how many points in the positive points to the negative points (Good/Bad/Buy/Don't buy)
+    Summary: (write a short version of the description provided)
+    Why to buy:
+    1-
+    2-
+    3-
+    n-
+    
+    Why not to buy:
+    1-
+    2-
+    3-
+    n-
+    
+'''
 """
 
 prompt = PromptTemplate(
