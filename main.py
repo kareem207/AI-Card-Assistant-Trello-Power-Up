@@ -61,10 +61,10 @@ def process_card_and_add_comment(card_id):
         # Add a comment with the output to the card
         add_comment_to_card(card_id, output)
 
-        return 'Card processed successfully'
+        return jsonify('Card processed successfully')
     except Exception as e:
         print(e)
-        return 'Error processing card'
+        return jsonify('Error processing card')
 
 @app.route('/', methods=['GET'])
 def MainAccess():
