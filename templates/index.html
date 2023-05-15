@@ -78,6 +78,14 @@
   
               // Append the modal content to the document body
               document.body.insertAdjacentHTML('beforeend', modalContent);
+
+              // Add event listener to close the modal when clicked outside
+              const modal = document.querySelector('.modal');
+              modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                  modal.remove();
+                }
+              });
             }
           }
         ];
