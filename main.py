@@ -79,7 +79,9 @@ def powerUpScript():
 
 @app.route('/modal', methods=['GET'])
 def modal():
-    return render_template('modal.html')
+    cardid=
+    cardname=
+    return render_template('modal.html',cardid=cardid,cardname=cardname)
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
