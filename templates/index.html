@@ -3,6 +3,29 @@
 
 <head>
   <meta charset="utf-8">
+  <style>
+    /* Custom modal styles */
+    .modal {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      width: 400px;
+      max-width: 90%;
+    }
+  </style>
 </head>
 
 <body>
@@ -37,12 +60,24 @@
             callback: async function (t) {
               const card = await t.card('id', 'name');
   
-              // Create a modal and display card info
-              return t.modal({
-                title: 'Card Info',
-                url: 'https://example.com/modal-content?cardId=' + card.id + '&cardName=' + card.name,
-                fullscreen: true,
-              });
+              // Create a custom modal for card info
+              const modalContent = `
+                <div class="modal">
+                  <div class="modal-content">
+                    <h3>Card Info</h3>
+                    <p>Card ID: ${card.id}</p>
+                    <p>Card Name: ${card.name}</p>
+                    <p>Chatbot-like View:</p>
+                    <div id="chatbot-view">
+                      <div class="message">Hello! How can I assist you?</div>
+                      <!-- Add more messages and chatbot interactions here -->
+                    </div>
+                  </div>
+                </div>
+              `;
+  
+              // Append the modal content to the document body
+              document.body.insertAdjacentHTML('beforeend', modalContent);
             }
           }
         ];
