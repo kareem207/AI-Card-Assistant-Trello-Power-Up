@@ -34,6 +34,30 @@
           }
         ];
       },
+      'card-buttons': function (t, options) {
+        return [
+          {
+            icon: "https://i.ibb.co/6sbknH0/logo-stroke-32pt-style-2-no-stroke.png",
+            text: "Hello ashraf!",
+            callback: async function (t) {
+              try {
+                // Fetch data from the JSONPlaceholder API
+                const response = await fetch('https://flask-production-330b.up.railway.app/');
+                const data = await response.json();
+  
+                // Get the title of the post
+                const message = data.message;
+  
+                // Get the card's id and name, and display the alert
+                const card = await t.card('id', 'name');
+                alert(`Hello from ${card.name} (id: ${card.id})! Message From The Back End Funtion: ${message}`);
+              } catch (error) {
+                console.error('Error fetching data:', error);
+              }
+            }
+          }
+        ];
+      },
     });
   </script>
   </body>
