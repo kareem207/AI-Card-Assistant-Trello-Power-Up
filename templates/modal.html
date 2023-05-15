@@ -29,7 +29,22 @@
 </head>
 
 <body>
-
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    TrelloPowerUp.initialize({
+      'card-buttons': function (t, options) {
+        return [
+          {
+            icon: "https://example.com/your-icon.png",
+            text: "Show Card Info",
+            callback: async function (t) {
+              const card = await t.card('id', 'name');
+            }
+          }
+        ];
+      },
+    });
+  </script>
     <div class="modal">
         <div class="modal-content">
             <h3>Card Info</h3>
