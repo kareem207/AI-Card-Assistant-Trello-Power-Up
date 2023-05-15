@@ -77,7 +77,9 @@ def MainAccess():
 def powerUpScript():
     return render_template('index.html')
 
-
+@app.route('/modal', methods=['GET'])
+def modal():
+    return render_template('modal.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
