@@ -108,7 +108,7 @@ def MainAccess():
 def powerUpScript():
     return render_template('index.html')
 
-@app.route('/modal/<card_id>/<card_name>', methods=['GET'])
+@app.route('/modal/<card_id>', methods=['GET'])
 def modal(card_id,card_name):
     cardid=card_id
     cardname=card_name
@@ -120,7 +120,7 @@ def modal(card_id,card_name):
     
 
     
-    return render_template('modal.html',cardid=cardid,cardname=cardname)
+    return render_template('modal.html',carddesc=card_desc)
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
