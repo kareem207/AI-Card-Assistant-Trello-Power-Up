@@ -118,9 +118,7 @@ def modal(card_id,card_name):
     # Extract the card description
     card_desc = card_data['desc']
     
-    splittedDocuments = split_document(card_desc)
-    
-    vecstore = vector_store(documents=splittedDocuments)
+
     
     return render_template('modal.html',cardid=cardid,cardname=cardname)
 
