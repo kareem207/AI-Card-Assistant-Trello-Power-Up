@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <style>
@@ -25,22 +24,94 @@
       width: 400px;
       max-width: 90%;
     }
+
+    .message-container {
+      margin-bottom: 10px;
+    }
+
+    .user-message {
+      background-color: #cce6ff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .bot-message {
+      background-color: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
   </style>
 </head>
 
 <body>
-
-    <div class="modal">
-        <div class="modal-content">
-            <h3>Card Info</h3>
-            <p>Card ID: {{cardid}}</p>
-            <p>Card Name: {{cardname}}</p>
-            <p>Chatbot-like View:</p>
-            <div id="chatbot-view">
-            <div class="message">Hello! How can I assist you?</div>
-            <!-- Add more messages and chatbot interactions here -->
-            </div>
+  <div class="modal">
+    <div class="modal-content">
+      <h3>Chatbot</h3>
+      <div id="chatbot-view">
+        <div class="message-container">
+          <div class="bot-message">Hello! How can I assist you?</div>
         </div>
+      </div>
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button id="send-button">Send</button>
     </div>
+  </div>
+
+  <script>
+    // Get necessary DOM elements
+    const chatbotView = document.getElementById('chatbot-view');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    // Handle user input and display chatbot response
+    function handleUserInput() {
+      const userMessage = userInput.value;
+
+      // Display user message
+      displayMessage(userMessage, 'user');
+
+      // Simulate chatbot response (replace with your own logic)
+      const botMessage = generateBotResponse(userMessage);
+
+      // Display bot message
+      displayMessage(botMessage, 'bot');
+
+      // Clear user input
+      userInput.value = '';
+    }
+
+    // Display a message in the chatbot view
+    function displayMessage(message, sender) {
+      const messageContainer = document.createElement('div');
+      const messageElement = document.createElement('div');
+
+      messageContainer.classList.add('message-container');
+      messageElement.classList.add(`${sender}-message`);
+      messageElement.textContent = message;
+
+      messageContainer.appendChild(messageElement);
+      chatbotView.appendChild(messageContainer);
+
+      // Scroll to the bottom of the chatbot view
+      chatbotView.scrollTop = chatbotView.scrollHeight;
+    }
+
+    // Generate a simulated response from the chatbot (replace with your own logic)
+    function generateBotResponse(userMessage) {
+      return `You said: ${userMessage}`;
+    }
+
+    // Event listener for send button click
+    sendButton.addEventListener('click', handleUserInput);
+
+    // Event listener for Enter key press in user input field
+    userInput.addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        handleUserInput();
+      }
+    });
+  </script>
 </body>
 </html>
