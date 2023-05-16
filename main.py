@@ -3,6 +3,10 @@ from langchain import OpenAI
 from langchain import PromptTemplate
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA
 
 app = Flask(__name__)
 CORS(app)
@@ -50,6 +54,18 @@ def process_card_data(desc, title):
     processed_data = llm(prompt.format(title=title, desc=desc))
     return processed_data
 
+#split document
+def split_document(document):
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    documents = text_splitter.split_documents(document)
+    return documents
+
+#create vector database
+def vector_store(documents):
+    embeddings = OpenAIEmbeddings()
+    vecstore = Chroma.from_documents(documents, embeddings)
+    return vecstore
+
 # Function to add a comment to the card with the output
 def add_comment_to_card(card_id, comment):
     comment_url = COMMENT_URL.format(card_id, API_KEY, TOKEN)
@@ -96,6 +112,16 @@ def powerUpScript():
 def modal(card_id,card_name):
     cardid=card_id
     cardname=card_name
+    
+    card_data = retrieve_card_details(card_id)
+
+    # Extract the card description
+    card_desc = card_data['desc']
+    
+    splittedDocuments = split_document(card_desc)
+    
+    vecstore = vector_store(documents=splittedDocuments)
+    
     return render_template('modal.html',cardid=cardid,cardname=cardname)
 
 if __name__ == '__main__':
