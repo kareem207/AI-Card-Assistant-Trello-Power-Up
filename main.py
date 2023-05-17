@@ -102,6 +102,7 @@ def modal(card_id):
     # Extract the card description
     card_desc = card_data['desc']
     
+    document = [card_desc]
 
     
     return render_template('modal.html',carddesc=card_desc)
