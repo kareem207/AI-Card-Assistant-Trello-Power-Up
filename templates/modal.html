@@ -76,7 +76,7 @@
       displayMessage(userMessage, 'user');
 
       // Simulate chatbot response (replace with your own logic)
-      const botMessage = generateBotResponse(userMessage);
+      const botMessage = await generateBotResponse(userMessage);
 
       // Display bot message
       displayMessage(botMessage, 'bot');
