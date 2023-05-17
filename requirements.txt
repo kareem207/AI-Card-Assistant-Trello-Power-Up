@@ -4,6 +4,7 @@ openai
 chromadb
 tiktoken
 requests
+json
 flask-cors
 click==7.1.2
 gunicorn==20.0.4
