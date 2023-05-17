@@ -91,12 +91,8 @@ def qa_retrieval(vectorstore):
     )
     return qa
 
-def query(q,qa,prompt):
-    
-    output = qa.run(prompt.format(query=q))
-    return output
 
-@app.route('/query/<vecstore>/<query>', methods=['GET'])
+@app.route('/query/<vecstore>/<input>', methods=['GET'])
 def query(vecstore,input):
     qa = qa_retrieval(vectorstore=vecstore)
     output = qa.run(input)
