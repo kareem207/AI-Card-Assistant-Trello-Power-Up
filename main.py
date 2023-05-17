@@ -91,10 +91,10 @@ def qa_retrieval(vectorstore):
     )
     return qa
 
-
-@app.route('/query/<vecstore>/<input>', methods=['GET'])
-def query(vecstore,input):
-    vecstore = vecstore
+vecstore = None
+@app.route('/query/<input>', methods=['GET'])
+def query(input):
+    global vecstore
     qa = qa_retrieval(vectorstore=vecstore)
     output = qa.run(input)
     return output
@@ -142,10 +142,11 @@ def modal(card_id):
     
     splittedDocuments = split_document(document=text)
 
-    vectorstore = vector_store(documents=splittedDocuments)
+    global vecstore
+    vecstore = vector_store(documents=splittedDocuments)
 
     
-    return render_template('modal.html',vecstore=vectorstore)
+    return render_template('modal.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
