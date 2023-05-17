@@ -94,6 +94,7 @@ def qa_retrieval(vectorstore):
 
 @app.route('/query/<vecstore>/<input>', methods=['GET'])
 def query(vecstore,input):
+    vecstore = json.loads(vecstore)
     qa = qa_retrieval(vectorstore=vecstore)
     output = qa.run(input)
     return output
