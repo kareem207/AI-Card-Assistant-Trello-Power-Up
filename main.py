@@ -144,7 +144,7 @@ def modal(card_id):
     vectorstore = vector_store(documents=splittedDocuments)
 
     
-    return render_template('modal.html',vecstore=vectorstore)
+    return render_template('modal.html',vecstore=json.dumps(vectorstore))
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
