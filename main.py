@@ -3,6 +3,10 @@ from langchain import OpenAI
 from langchain import PromptTemplate
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA
 
 
 app = Flask(__name__)
@@ -50,6 +54,18 @@ COMMENT_URL = 'https://api.trello.com/1/cards/{}/actions/comments?key={}&token={
 def process_card_data(desc, title):
     processed_data = llm(prompt.format(title=title, desc=desc))
     return processed_data
+
+#split the desc
+def split_document(document):
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    documents = text_splitter.split_documents(document)
+    return documents
+
+#create vector database
+def vector_store(documents):
+    embeddings = OpenAIEmbeddings()
+    vecstore = Chroma.from_documents(documents, embeddings)
+    return vecstore
 
 # Function to add a comment to the card with the output
 def add_comment_to_card(card_id, comment):
@@ -103,6 +119,10 @@ def modal(card_id):
     card_desc = card_data['desc']
     
     document = [card_desc]
+    
+    splittedDocuments = split_document(document=document)
+
+    vecstore = vector_store(documents=splittedDocuments)
 
     
     return render_template('modal.html',carddesc=card_desc)
