@@ -1,7 +1,5 @@
 langchain 
 Flask
-chromadb
-tiktoken
 openai
 requests
 flask-cors
