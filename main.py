@@ -82,6 +82,26 @@ def retrieve_card_details(card_id):
     card_data = response.json()
     return card_data
 
+#create qa
+def qa_retrieval(vectorstore):
+    qa = RetrievalQA.from_chain_type(
+        llm=OpenAI(temperature=0,model_name="gpt-3.5-turbo"), 
+        chain_type="stuff", 
+        retriever=vectorstore.as_retriever(),
+    )
+    return qa
+
+def query(q,qa,prompt):
+    
+    output = qa.run(prompt.format(query=q))
+    return output
+
+@app.route('/query/<vecstore>/<query>', methods=['GET'])
+def query(vecstore,input):
+    qa = qa_retrieval(vectorstore=vecstore)
+    output = qa.run(input)
+    return output
+
 @app.route('/process_card/<card_id>', methods=['GET'])
 def process_card_and_add_comment(card_id):
     try:
