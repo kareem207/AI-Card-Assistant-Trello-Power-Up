@@ -103,8 +103,9 @@
 
     // Generate a simulated response from the chatbot (replace with your own logic)
     function generateBotResponse(userMessage) {
-      const response = await fetch(`https://flask-production-330b.up.railway.app/query/${JSON.stringify(vecstore)}/${userMessage}`);
-      return response.text();
+      const response = await fetch(`https://flask-production-330b.up.railway.app/query/${encodeURIComponent(JSON.stringify(vecstore))}/${encodeURIComponent(userMessage)}`);
+      const result = await response.text();
+      return result;
     }
 
     // Event listener for send button click
