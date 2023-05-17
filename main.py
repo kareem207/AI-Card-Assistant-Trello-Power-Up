@@ -94,9 +94,8 @@ def powerUpScript():
     return render_template('index.html')
 
 @app.route('/modal/<card_id>', methods=['GET'])
-def modal(card_id,card_name):
+def modal(card_id):
     cardid=card_id
-    cardname=card_name
     
     card_data = retrieve_card_details(card_id)
 
