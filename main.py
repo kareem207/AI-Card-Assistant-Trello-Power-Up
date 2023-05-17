@@ -1,5 +1,4 @@
 import requests
-import json
 from langchain import OpenAI
 from langchain import PromptTemplate
 from flask import Flask, render_template, jsonify
@@ -95,7 +94,7 @@ def qa_retrieval(vectorstore):
 
 @app.route('/query/<vecstore>/<input>', methods=['GET'])
 def query(vecstore,input):
-    vecstore = json.loads(vecstore)
+    vecstore = vecstore
     qa = qa_retrieval(vectorstore=vecstore)
     output = qa.run(input)
     return output
@@ -146,7 +145,7 @@ def modal(card_id):
     vectorstore = vector_store(documents=splittedDocuments)
 
     
-    return render_template('modal.html',vecstore=json.dumps(vectorstore))
+    return render_template('modal.html',vecstore=vectorstore)
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
