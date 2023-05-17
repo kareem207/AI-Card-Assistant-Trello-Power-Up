@@ -1,6 +1,8 @@
 langchain 
 Flask
 openai
+chromadb
+tiktoken
 requests
 flask-cors
 click==7.1.2
