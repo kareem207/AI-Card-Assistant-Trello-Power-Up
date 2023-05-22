@@ -6,7 +6,8 @@ from flask_cors import CORS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
-from langchain.chains import RetrievalQA
+from langchain.chains import ConversationalRetrievalChain
+from langchain.memory import ConversationBufferMemory
 from langchain.docstore.document import Document
 
 
@@ -84,10 +85,12 @@ def retrieve_card_details(card_id):
 
 #create qa
 def qa_retrieval(vectorstore):
-    qa = RetrievalQA.from_chain_type(
+    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+    qa = ConversationalRetrievalChain.from_llm(
         llm=OpenAI(temperature=0,model_name="gpt-3.5-turbo"), 
         chain_type="stuff", 
         retriever=vectorstore.as_retriever(),
+        memory=memory
     )
     return qa
 
