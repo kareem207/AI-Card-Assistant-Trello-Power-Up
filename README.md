@@ -9,6 +9,6 @@ AI Card Assistant transforms Trello cards into intelligent hubs of information u
 **Enhanced Project Management:** Streamlines card processing for better project tracking and team communication.  <br/>
 
 ## Built With
-**Backend:** Node.js and Express <br/>
+**Backend:** Python and Flask <br/>
 **AI Integration:** OpenAI  <br/>
 
