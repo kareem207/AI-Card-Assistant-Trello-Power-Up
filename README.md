@@ -13,11 +13,11 @@ AI Card Assistant transforms Trello cards into intelligent hubs of information u
 **AI Integration:** OpenAI  <br/>
 
 ---
-title: Flask
-description: A popular minimal server framework for Python
-tags:
-  - python
-  - flask
+Flask
+Description: A popular minimal server framework for Python
+Tags:
+  - Python
+  - Flask
 ---
 
 # Python Flask Example
